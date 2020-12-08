@@ -1,19 +1,19 @@
 function randomPink() {
-    let color = "rgb(255, 0, " + Math.floor(Math.random()*(150-100)+100) + ")";
+    let color = "rgb(255, 0, " + Math.floor(Math.random()*(170-80)+80) + ")";
     return color;
 }
 
 function randomCoordinates() {
     coordinates = [];
-    squareSize = 10;
-    horizontalMax = 20 * squareSize;
-    verticalMax = 20 * squareSize;
+    squareSize = 16;
+    horizontalMax = 50 * squareSize;
+    verticalMax = 40 * squareSize;
     coordinates[0] = Math.floor(Math.random()*horizontalMax/squareSize) * squareSize;
     coordinates[1] = Math.floor(Math.random()*verticalMax/squareSize) * squareSize;
     return coordinates;
 }
 
-for(x=0; x<256; x++) {
+for(x=0; x<1000; x++) {
     pixel = document.createElement('div');
     pixel.className = 'pixel'
     pixel.style.backgroundColor = randomPink()
