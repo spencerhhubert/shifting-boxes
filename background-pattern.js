@@ -9,16 +9,31 @@ function boxMullerPositiveFloat() {
     return Math.abs(randomBoxMuller());
 }
 
+function getRGBValueInRange(top, bottom) {
+    return Math.floor(Math.random()*(top-bottom)+bottom)
+}
+
 function randomPink() {
-    let color = "rgb(255, 0, " + Math.floor(Math.random()*(250-80)+80) + ")";
+    let value1 = getRGBValueInRange(220, 255);
+    let value2 = getRGBValueInRange(20, 90);
+    let value3 = getRGBValueInRange(250, 120);
+    return "rgb(" + value1 + ", " + value2 + ", " + value3 + ")";
+}
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
     return color;
 }
 
 function generatePixel() {
     let pixel = {};
-    pixel.squareSize = 8;
-    pixel.horizontalMax = 32 * pixel.squareSize;
-    pixel.verticalMax = 32 * pixel.squareSize;
+    pixel.squareSize = 32;
+    pixel.horizontalMax = 16 * pixel.squareSize;
+    pixel.verticalMax = 16 * pixel.squareSize;
     pixel.xCord = Math.floor(boxMullerPositiveFloat()*pixel.horizontalMax/pixel.squareSize) * pixel.squareSize;
     pixel.yCord = Math.floor(boxMullerPositiveFloat()*pixel.verticalMax/pixel.squareSize) * pixel.squareSize;
     pixel.color = randomPink();
@@ -36,8 +51,19 @@ for(x=0; x<totalNumberOfPixels; x++) {
     pixelNode.style.top = newPixel.yCord + "px";
     pixelNode.style.width = newPixel.squareSize + "px";
     pixelNode.style.height = newPixel.squareSize + "px";
+    let currentZIndex = 2;
+
     pixelNode.addEventListener("mouseenter", function(event) {
+        if (currentZIndex >= 128) {
+            currentZIndex = 2;
+        }
+        currentZIndex++
         event.target.style.backgroundColor = randomPink();
+        event.target.style.zIndex = currentZIndex;
+    })
+
+    pixelNode.addEventListener("click", function(event) {
+        event.target.remove()
     })
     document.getElementById('pixel-drip').appendChild(pixelNode)
 }

@@ -1,20 +1,30 @@
 body {
     margin: 0;
-    background-color: #1c100b;
+    /* background: rgb(22,22,22); */
+    background: linear-gradient(128deg, rgba(45,45,45,1) 0%, rgba(22,22,22,1) 100%);
+    background-attachment:fixed;
+    height:100%;
 }
 
 #pixel-drip .pixel {
     transition: all .1s;
     position: absolute;
     margin: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    z-index: 2;
 }
 
 #pixel-drip .pixel:hover {
-    transform: scale(2);
+    /* z-index: 3; */
+    transform: scale(1.5);
 }
 
 #pixel-drip {
     position: absolute;
-    left: -48px;
-    top: -48px;
+    left: -256;
+    top: -256;
+}
+
+.content {
+    z-index: 500;
 }
