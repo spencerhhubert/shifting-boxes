@@ -1,0 +1,10 @@
+body {
+    margin: 0;
+}
+
+#pixel-drip .pixel {
+    position: absolute;
+    margin: 0;
+    width: 10px;
+    height: 10px;
+}
