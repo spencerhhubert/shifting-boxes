@@ -1,32 +1,33 @@
+function randomBoxMuller() {
+    var u = 0, v = 0;
+    while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+    while(v === 0) v = Math.random();
+    return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+}
+
+function boxMullerPositiveFloat() {
+    return Math.abs(randomBoxMuller());
+}
+
 function randomPink() {
     let color = "rgb(255, 0, " + Math.floor(Math.random()*(250-80)+80) + ")";
     return color;
 }
 
-// function randomCoordinates() {
-//     coordinates = [];
-//     squareSize = 16;
-//     horizontalMax = 50 * squareSize;
-//     verticalMax = 40 * squareSize;
-//     coordinates[0] = Math.floor(Math.random()*horizontalMax/squareSize) * squareSize;
-//     coordinates[1] = Math.floor(Math.random()*verticalMax/squareSize) * squareSize;
-//     return coordinates;
-// }
-
 function generatePixel() {
     let pixel = {};
-    pixel.squareSize = 16;
-    pixel.horizontalMax = 50 * pixel.squareSize;
-    pixel.verticalMax = 50 * pixel.squareSize;
-    pixel.xCord = Math.floor(Math.random()*pixel.horizontalMax/pixel.squareSize) * pixel.squareSize;
-    pixel.yCord = Math.floor(Math.random()*pixel.verticalMax/pixel.squareSize) * pixel.squareSize;
+    pixel.squareSize = 8;
+    pixel.horizontalMax = 32 * pixel.squareSize;
+    pixel.verticalMax = 32 * pixel.squareSize;
+    pixel.xCord = Math.floor(boxMullerPositiveFloat()*pixel.horizontalMax/pixel.squareSize) * pixel.squareSize;
+    pixel.yCord = Math.floor(boxMullerPositiveFloat()*pixel.verticalMax/pixel.squareSize) * pixel.squareSize;
     pixel.color = randomPink();
     return pixel
 }
 
-let totalNumberOfPixels = 1000;
+let totalNumberOfPixels = 1280;
 
-for(x=0; x<1000; x++) {
+for(x=0; x<totalNumberOfPixels; x++) {
     newPixel = generatePixel();
     pixelNode = document.createElement('div');
     pixelNode.className = 'pixel'
