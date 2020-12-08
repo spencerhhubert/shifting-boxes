@@ -4,8 +4,13 @@ body {
 }
 
 #pixel-drip .pixel {
+    transition: all .1s ease-in-out;
     position: absolute;
     margin: 0;
     width: 16px;
     height: 16px;
+}
+
+#pixel-drip .pixel:hover {
+    transform: scale(1.25);
 }

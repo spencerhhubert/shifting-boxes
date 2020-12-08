@@ -1,5 +1,5 @@
 function randomPink() {
-    let color = "rgb(255, 0, " + Math.floor(Math.random()*(170-80)+80) + ")";
+    let color = "rgb(255, 0, " + Math.floor(Math.random()*(250-80)+80) + ")";
     return color;
 }
 
@@ -20,5 +20,8 @@ for(x=0; x<1000; x++) {
     coordinates = randomCoordinates()
     pixel.style.left = coordinates[0] + "px";
     pixel.style.top = coordinates[1] + "px";
+    pixel.addEventListener("mouseenter", function(event) {
+        event.target.style.backgroundColor = randomPink();
+    })
     document.getElementById('pixel-drip').appendChild(pixel)
 }
