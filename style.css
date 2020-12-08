@@ -4,11 +4,9 @@ body {
 }
 
 #pixel-drip .pixel {
-    transition: all .1s ease-in-out;
+    transition: all .1s;
     position: absolute;
     margin: 0;
-    width: 16px;
-    height: 16px;
 }
 
 #pixel-drip .pixel:hover {
