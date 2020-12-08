@@ -20,6 +20,11 @@ function randomPink() {
     return "rgb(" + value1 + ", " + value2 + ", " + value3 + ")";
 }
 
+function randomGray() {
+    let value = getRGBValueInRange(16, 48);
+    return "rgb(" + value + ", " + value + ", " + value + ")";
+}
+
 function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '#';
@@ -40,7 +45,7 @@ function generatePixel() {
     return pixel
 }
 
-let totalNumberOfPixels = 1280;
+let totalNumberOfPixels = 1000;
 
 for(x=0; x<totalNumberOfPixels; x++) {
     newPixel = generatePixel();
@@ -62,7 +67,7 @@ for(x=0; x<totalNumberOfPixels; x++) {
         event.target.style.zIndex = currentZIndex;
     })
 
-    pixelNode.addEventListener("click", function(event) {
+    pixelNode.addEventListener("mousedown", function(event) {
         event.target.remove()
     })
     document.getElementById('pixel-drip').appendChild(pixelNode)
