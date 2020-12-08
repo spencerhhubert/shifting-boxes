@@ -8,6 +8,7 @@ body {
 
 #pixel-drip .pixel {
     transition: all .1s;
+    /* transition: left 1s; */
     position: absolute;
     margin: 0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -26,5 +27,16 @@ body {
 }
 
 .content {
+    position: relative;
     z-index: 500;
+}
+
+.box {
+    position: relative;
+    z-index: 500;
+    background-color:  rgba(22,22,22,1);
+}
+
+.box h1 {
+    color: #FFF;
 }
