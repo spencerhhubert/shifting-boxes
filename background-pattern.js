@@ -153,11 +153,11 @@ for(x=0; x<totalNumberOfPixels; x++) {
     let pixel = new Pixel(node);
 
     function banana() {
-        if (Math.random() < .01) {
+        if (Math.random() < .05) {
             pixel.moveRandomly()
         }
     }
-    setInterval(banana, Math.random() * 50000);
+    setInterval(banana, Math.random() * 50000 + 1000);
 
     document.getElementById('pixel-drip').appendChild(node)
 }
