@@ -40,72 +40,124 @@ function getRandomColor() {
     return color;
 }
 
-function generatePixel() {
-    let pixel = {};
-    pixel.squareSize = 32;
-    pixel.horizontalMax = 16 * pixel.squareSize;
-    pixel.verticalMax = 16 * pixel.squareSize;
-    pixel.xCord = Math.floor(boxMullerPositiveFloat()*pixel.horizontalMax/pixel.squareSize) * pixel.squareSize;
-    pixel.yCord = Math.floor(boxMullerPositiveFloat()*pixel.verticalMax/pixel.squareSize) * pixel.squareSize;
-    pixel.originDistance = Math.sqrt(pixel.xCord**2 + pixel.yCord**2)
-    console.log(pixel.originDistance);
-    pixel.color = randomPink();
-    return pixel
+class Pixel {
+    constructor(node) {
+        this.size = 32;
+        this.horizontalMax = 16 * this.size
+        this.verticalMax = 16 * this.size
+        this.color = randomPink();
+        this.xCord = Math.floor(boxMullerPositiveFloat()*this.horizontalMax/this.size) * this.size;
+        this.yCord = Math.floor(boxMullerPositiveFloat()*this.verticalMax/this.size) * this.size;
+        this.zIndex = 2;
+        this.originDistance = Math.sqrt(this.xCord**2 + this.yCord**2)
+
+        this.node = node;
+
+        this.node.className = "pixel";
+        this.node.style.backgroundColor = this.color;
+        this.node.style.top = this.xCord;
+        this.node.style.left = this.yCord;
+        this.node.style.width = this.size;
+        this.node.style.height = this.size;
+        this.node.style.zIndex = this.zIndex;
+        this.node.style.opacity = 1/(this.originDistance/300);
+
+        this.node.addEventListener("mousedown", function(event) {
+            event.target.remove();
+        })
+
+        // this.node.addEventListener("mousedown", this.myFunc(this.node));
+        
+        this.node.addEventListener("mouseenter", function(event) {
+            if (this.zIndex >= 128) {
+                this.zIndex = 2;
+            }
+            this.zIndex = 9
+            event.target.style.backgroundColor = randomPink();
+            event.target.style.zIndex = this.zIndex;
+            // console.log(this.zIndex)
+        })
+    }
+
+    moveUp(times) {
+        for (let i=0; i<times; i++) {
+            this.xCord -= this.size;
+            this.node.style.top = this.xCord;
+        }
+    }
+    moveDown(times) {
+        for (let i=0; i<times; i++) {
+            this.xCord += this.size;
+            this.node.style.top = this.xCord;
+        }     
+    }
+    moveRight(times) {
+        for (let i=0; i<times; i++) {
+            this.yCord += this.size;
+            this.node.style.left = this.yCord;
+        }
+    }
+    moveLeft(times) {
+        for (let i=0; i<times; i++) {
+            this.yCord -= this.size;
+            this.node.style.left = this.yCord;
+        }
+    }
+    changeColor(color) {
+        this.color = color;
+        this.node.style.backgroundColor = this.color;
+    }
+    changeSize(size) {
+        this.size = size;
+        this.node.style.width = this.size;      
+        this.node.style.height = this.size;
+    }
+    randomDirection() {
+        let randomValue = Math.random();
+        if(randomValue >= 0 && randomValue < .25) {
+            return "up";
+        }
+        if(randomValue >= .25 && randomValue < .5) {
+            return "right";
+        }
+        if(randomValue >= .5 && randomValue < .75) {
+            return "down";
+        }
+        if(randomValue >= .75 && randomValue < 1) {
+            return "left";
+        }
+    }
+    moveRandomly() {
+        let way = this.randomDirection();
+        switch(way) {
+            case "up":
+                this.moveUp(1);
+                break;
+            case "right":
+                this.moveRight(1);
+                break;
+            case "down":
+                this.moveDown(1);
+                break;
+            case "left":
+                this.moveLeft(1);
+                break;
+        }
+    }
 }
 
 let totalNumberOfPixels = 1000;
 
 for(x=0; x<totalNumberOfPixels; x++) {
-    newPixel = generatePixel();
-    pixelNode = document.createElement('div');
-    pixelNode.className = 'pixel'
-    pixelNode.style.backgroundColor = newPixel.color;
-    pixelNode.style.left = newPixel.xCord;
-    pixelNode.style.top = newPixel.yCord;
-    pixelNode.style.width = newPixel.squareSize + "px";
-    pixelNode.style.height = newPixel.squareSize + "px";
-    pixelNode.style.opacity = 1/(newPixel.originDistance/300);
-    let currentZIndex = 2;
+    node = document.createElement('div');
+    let pixel = new Pixel(node);
 
-    pixelNode.addEventListener("mouseenter", function(event) {
-        if (currentZIndex >= 128) {
-            currentZIndex = 2;
+    function banana() {
+        if (Math.random() < .01) {
+            pixel.moveRandomly()
         }
-        currentZIndex++
-        event.target.style.backgroundColor = randomPink();
-        event.target.style.zIndex = currentZIndex;
-    })
-
-    pixelNode.addEventListener("mousedown", function(event) {
-        event.target.remove()
-        movePixelRandomWay(pixelNode, newPixel)
-    })
-
-    // pixelNode.addEventListener(setInterval(1000), function(event) {
-    //     if (Math.random() < .5) {
-    //         event.target.style.top = rawAttributeValue(event.target.style.top) + newPixel.squareSize;
-    //     }
-    // })
-
-    // movePixelRandomWay(pixelNode, newPixel);
-
-    document.getElementById('pixel-drip').appendChild(pixelNode)
-}
-
-function movePixelRandomWay(node, object) {
-    let randomValue = Math.random();
-    switch(randomValue) {
-        case randomValue < .25:
-            node.style.left = rawAttributeValue(node.style.left) + object.squareSize;
-            break;
-        case randomValue > .25 && randomValue < .5:
-            node.style.top = rawAttributeValue(node.style.top) + object.squareSize;
-            break;
-        case randomValue > .5 && randomValue < .75:
-            node.style.right = rawAttributeValue(node.style.right) + object.squareSize;
-            break;
-        case randomValue > .75 && randomValue < 1:
-            node.style.top = rawAttributeValue(node.style.top) + object.squareSize;
-            break;
     }
+    setInterval(banana, Math.random() * 50000);
+
+    document.getElementById('pixel-drip').appendChild(node)
 }
