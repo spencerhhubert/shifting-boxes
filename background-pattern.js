@@ -70,6 +70,7 @@ class Pixel {
             event.target.style.backgroundColor = randomPink();
             event.target.style.zIndex = parseInt(event.target.style.zIndex, 10) + 1;
         })
+        // setInterval(this.banana, Math.random() * 50000 + 1000);
     }
 
     moveUp(times) {
@@ -151,13 +152,13 @@ for(x=0; x<totalNumberOfPixels; x++) {
     node = document.createElement('div');
     let pixel = new Pixel(node);
 
-    function banana() {
+    function randomShift() {
         if (Math.random() < .05) {
             let direction = pixel.pickRandomDirection()
             pixel.move(direction)
         }
     }
-    setInterval(banana, Math.random() * 50000 + 1000);
+    setInterval(randomShift, Math.random() * 50000 + 1000);
 
     document.getElementById('pixel-drip').appendChild(node)
 }
