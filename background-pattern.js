@@ -42,7 +42,7 @@ function getRandomColor() {
 
 class Pixel {
     constructor(node) {
-        this.size = 32;
+        this.size = 20;
         this.horizontalMax = 16 * this.size
         this.verticalMax = 16 * this.size
         this.color = randomPink();
