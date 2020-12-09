@@ -65,17 +65,10 @@ class Pixel {
         this.node.addEventListener("mousedown", function(event) {
             event.target.remove();
         })
-
-        // this.node.addEventListener("mousedown", this.myFunc(this.node));
         
         this.node.addEventListener("mouseenter", function(event) {
-            if (this.zIndex >= 128) {
-                this.zIndex = 2;
-            }
-            this.zIndex = 9
             event.target.style.backgroundColor = randomPink();
-            event.target.style.zIndex = this.zIndex;
-            // console.log(this.zIndex)
+            event.target.style.zIndex = parseInt(event.target.style.zIndex, 10) + 1;
         })
     }
 
@@ -112,7 +105,14 @@ class Pixel {
         this.node.style.width = this.size;      
         this.node.style.height = this.size;
     }
-    randomDirection() {
+    increaseZ() {
+        this.zIndex += 1;
+        if (this.zIndex >= 128) {
+            this.zIndex = 2;
+        }
+        this.node.style.zIndex = 10;
+    }
+    pickRandomDirection() {
         let randomValue = Math.random();
         if(randomValue >= 0 && randomValue < .25) {
             return "up";
@@ -127,9 +127,8 @@ class Pixel {
             return "left";
         }
     }
-    moveRandomly() {
-        let way = this.randomDirection();
-        switch(way) {
+    move(direction) {
+        switch(direction) {
             case "up":
                 this.moveUp(1);
                 break;
@@ -154,7 +153,8 @@ for(x=0; x<totalNumberOfPixels; x++) {
 
     function banana() {
         if (Math.random() < .05) {
-            pixel.moveRandomly()
+            let direction = pixel.pickRandomDirection()
+            pixel.move(direction)
         }
     }
     setInterval(banana, Math.random() * 50000 + 1000);
