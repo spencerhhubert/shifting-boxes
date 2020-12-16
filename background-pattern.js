@@ -165,13 +165,14 @@ for(x=0; x<totalNumberOfPixels; x++) {
     pixelNode = document.createElement('div');
     let pixel = new Pixel(pixelNode);
 
-    function randomShift() {
+    setInterval(() => {
         if (Math.random() < .05) {
             let direction = pixel.pickRandomDirection()
             pixel.move(direction)
         }
-    }
-    setInterval(randomShift, Math.random() * 50000 + 1000);
+    }, Math.random() * 50000 + 1000);
+
+    dripNode.appendChild(pixelNode);
 
     if(x==0) {
         dripNode.style.left = pixel.shiftX * -1;
