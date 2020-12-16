@@ -21,8 +21,8 @@ body {
 
 #pixel-drip {
     position: absolute;
-    left: -200;
-    top: -200;
+    /* left: -200;
+    top: -200; */
 }
 
 .content {

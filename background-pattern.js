@@ -43,13 +43,25 @@ function getRandomColor() {
 class Pixel {
     constructor(node) {
         this.size = 20;
+        this.shiftX = 200;
+        this.shiftY = 200;
         this.horizontalMax = 16 * this.size
         this.verticalMax = 16 * this.size
         this.color = randomPink();
-        this.xCord = Math.floor(boxMullerPositiveFloat()*this.horizontalMax/this.size) * this.size;
-        this.yCord = Math.floor(boxMullerPositiveFloat()*this.verticalMax/this.size) * this.size;
         this.zIndex = 2;
-        this.originDistance = Math.sqrt(this.xCord**2 + this.yCord**2)
+
+        this.xCord = 0;
+        this.yCord = 0;
+
+        while(this.xCord < this.shiftX) {
+            this.xCord = Math.floor(boxMullerPositiveFloat()*this.horizontalMax/this.size) * this.size;
+        }
+
+        while(this.yCord < this.shiftY) {
+            this.yCord = Math.floor(boxMullerPositiveFloat()*this.verticalMax/this.size) * this.size;
+        }
+
+        this.originDistance = Math.sqrt(this.xCord**2 + this.yCord**2);
 
         this.node = node;
 
@@ -146,11 +158,12 @@ class Pixel {
     }
 }
 
-let totalNumberOfPixels = 1000;
+let totalNumberOfPixels = 250;
+let dripNode = document.getElementById('pixel-drip');
 
 for(x=0; x<totalNumberOfPixels; x++) {
-    node = document.createElement('div');
-    let pixel = new Pixel(node);
+    pixelNode = document.createElement('div');
+    let pixel = new Pixel(pixelNode);
 
     function randomShift() {
         if (Math.random() < .05) {
@@ -160,5 +173,8 @@ for(x=0; x<totalNumberOfPixels; x++) {
     }
     setInterval(randomShift, Math.random() * 50000 + 1000);
 
-    document.getElementById('pixel-drip').appendChild(node)
+    if(x==0) {
+        dripNode.style.left = pixel.shiftX * -1;
+        dripNode.style.top = pixel.shiftY * -1;
+    }
 }
