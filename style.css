@@ -15,14 +15,11 @@ body {
 }
 
 #pixel-drip .pixel:hover {
-    /* z-index: 3; */
     transform: scale(1.5);
 }
 
 #pixel-drip {
     position: absolute;
-    /* left: -200;
-    top: -200; */
 }
 
 .content {

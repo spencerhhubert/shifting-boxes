@@ -1,8 +1,9 @@
 function randomBoxMuller() {
+    let originDensity = 1.15;
     var u = 0, v = 0;
-    while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+    while(u === 0) u = Math.random();
     while(v === 0) v = Math.random();
-    return Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+    return Math.sqrt( originDensity * -1 * Math.log( u ) ) * Math.cos( originDensity * Math.PI * v );
 }
 
 function boxMullerPositiveFloat() {
@@ -43,8 +44,8 @@ function getRandomColor() {
 class Pixel {
     constructor(node) {
         this.size = 20;
-        this.shiftX = 200;
-        this.shiftY = 200;
+        this.shiftX = 10 * this.size;
+        this.shiftY = 10 * this.size;;
         this.horizontalMax = 16 * this.size
         this.verticalMax = 16 * this.size
         this.color = randomPink();
@@ -82,7 +83,6 @@ class Pixel {
             event.target.style.backgroundColor = randomPink();
             event.target.style.zIndex = parseInt(event.target.style.zIndex, 10) + 1;
         })
-        // setInterval(this.banana, Math.random() * 50000 + 1000);
     }
 
     moveUp(times) {
@@ -158,7 +158,7 @@ class Pixel {
     }
 }
 
-let totalNumberOfPixels = 500;
+let totalNumberOfPixels = 150;
 let dripNode = document.getElementById('pixel-drip');
 
 for(x=0; x<totalNumberOfPixels; x++) {
