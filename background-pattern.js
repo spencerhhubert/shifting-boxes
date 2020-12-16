@@ -158,7 +158,7 @@ class Pixel {
     }
 }
 
-let totalNumberOfPixels = 250;
+let totalNumberOfPixels = 500;
 let dripNode = document.getElementById('pixel-drip');
 
 for(x=0; x<totalNumberOfPixels; x++) {
