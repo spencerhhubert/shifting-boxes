@@ -6,4 +6,4 @@ This is some js that creates this explosion of little boxes that independently s
 
 [Kinda fun to watch](https://spencerhhubert.github.io/shifting-boxes/)
 
-![shifting pink boxes example pic](https://raw.githubusercontent.com/spencerhhubert/shifting-boxes/main/example_pic.png)
+![shifting pink boxes example pic](https://raw.githubusercontent.com/spencerhhubert/shifting-boxes/master/example_pic.png)
